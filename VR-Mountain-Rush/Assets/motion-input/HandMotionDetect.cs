@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class motionDetect : MonoBehaviour
+[RequireComponent(typeof(TrailRenderer))]
+public class HandMotionDetect : MonoBehaviour
 {
 
     public float dFinal = 0;
@@ -34,15 +35,34 @@ public class motionDetect : MonoBehaviour
     float oldLocalZ;
 
     public GameObject obj;
-    public float freqAvgSpeed = 0f;
-    float preSpeed = 0f;
+    TrailRenderer tr;
+
+    public float freqAvgSpeed = 0.5f;
+    float preSpeedSeg = 0f;
+    public float avgSpeedSeg = 0f;
     public float avgSpeed = 0f;
 
     public float minDistLimit = 0.3f;
 
+    Queue<float> queueAverageSpeed = new Queue<float>(4);
 
+    
     void Start()
     {
+        obj = this.gameObject;
+        tr = obj.GetComponent<TrailRenderer>();
+
+        tr.time = 1;
+        tr.startWidth = 0.1f;
+        tr.endWidth = 0.01f;
+        tr.endColor = new Color(1,1,1,0);
+
+        queueAverageSpeed.Enqueue(0);
+        queueAverageSpeed.Enqueue(0);
+        queueAverageSpeed.Enqueue(0);
+        queueAverageSpeed.Enqueue(0);
+
+
         StartCoroutine(waitToCheckDistance());
         StartCoroutine(averageSpeed());
         StartCoroutine(get3AxisFinal());
@@ -86,7 +106,6 @@ public class motionDetect : MonoBehaviour
                 {
                     oppCount = 0;
                     slot1 += DeltaLocalP;
-                    Debug.Log(slot1);
                 }
                 else
                 {
@@ -111,7 +130,6 @@ public class motionDetect : MonoBehaviour
                 {
                     oppCount = 0;
                     slot1 += DeltaLocalP;
-                    Debug.Log(slot1);
                 }
                 else
                 {
@@ -140,7 +158,7 @@ public class motionDetect : MonoBehaviour
                     xFinal = 0;
                     yFinal = 0;
                     zFinal = 0;
-                    preSpeed += 0.5f;
+                    preSpeedSeg += 0.5f;
                 }
             }
             
@@ -151,8 +169,21 @@ public class motionDetect : MonoBehaviour
     IEnumerator averageSpeed()
     {
         while (true) {
-            avgSpeed = (float)preSpeed / (float) freqAvgSpeed;
-            preSpeed = 0;
+            avgSpeedSeg = (float)preSpeedSeg / (float) freqAvgSpeed;
+            preSpeedSeg = 0;
+
+
+            tr.startColor = new Color(1, 1 / (avgSpeedSeg * 3f), 1 / (avgSpeedSeg * 3f), 1);
+
+            queueAverageSpeed.Dequeue();
+            queueAverageSpeed.Enqueue(avgSpeedSeg);
+
+            avgSpeed = 0;
+            foreach (float speedSeg in queueAverageSpeed)
+            {
+                avgSpeed += speedSeg;
+            }
+            avgSpeed = avgSpeed / 4;
 
             yield return new WaitForSeconds(freqAvgSpeed);
         }
