@@ -55,32 +55,13 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (transform.rotation.z > 45)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 45);
-            Debug.Log("45");
-        }
-        if (transform.rotation.z < -45)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, -45);
-            Debug.Log("-45");
-        }
+     
     }
     void Update()
     {
         GetInputs();
         AnimateWheels();
         //WheelEffects();
-        if (transform.rotation.z > 45)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 45);
-            Debug.Log("45");
-        }
-        if (transform.rotation.z < -45)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, -45);
-            Debug.Log("-45");
-        }
     }
 
     void LateUpdate()
