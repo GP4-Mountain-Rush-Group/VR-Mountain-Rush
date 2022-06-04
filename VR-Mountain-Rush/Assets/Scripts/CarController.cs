@@ -53,11 +53,34 @@ public class CarController : MonoBehaviour
         //carLights = GetComponent<CarLights>();
     }
 
+    private void FixedUpdate()
+    {
+        if (transform.rotation.z > 45)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 45);
+            Debug.Log("45");
+        }
+        if (transform.rotation.z < -45)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, -45);
+            Debug.Log("-45");
+        }
+    }
     void Update()
     {
         GetInputs();
         AnimateWheels();
-        WheelEffects();
+        //WheelEffects();
+        if (transform.rotation.z > 45)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 45);
+            Debug.Log("45");
+        }
+        if (transform.rotation.z < -45)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, -45);
+            Debug.Log("-45");
+        }
     }
 
     void LateUpdate()
@@ -139,8 +162,21 @@ public class CarController : MonoBehaviour
             wheel.wheelCollider.GetWorldPose(out pos, out rot);
             wheel.wheelModel.transform.position = pos;
             wheel.wheelModel.transform.rotation = rot;
+            wheel.wheelModel.transform.rotation *= Quaternion.Euler(0, -90, 0);
         }
     }
+    /*void AnimateWheels()
+    {
+        foreach (var wheel in wheels)
+        {
+            Quaternion rot;
+            Vector3 pos;
+            rot = wheel.wheelCollider.transform.rotation;
+            pos = wheel.wheelCollider.transform.position;
+            wheel.wheelModel.transform.position = pos;
+            wheel.wheelModel.transform.rotation = rot;
+        }
+    }*/
 
     void WheelEffects()
     {
