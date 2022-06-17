@@ -63,12 +63,32 @@ public class HandMotionDetect : MonoBehaviour
         queueAverageSpeed.Enqueue(0);
 
 
-        StartCoroutine(waitToCheckDistance());
-        StartCoroutine(averageSpeed());
-        StartCoroutine(get3AxisFinal());
+        StartCoroutine(WaitToCheckDistance());
+        StartCoroutine(AverageSpeed());
+        StartCoroutine(Get3AxisFinal());
+
+
+        thisMeshRenderer = gameObject.GetComponent<MeshRenderer>();
+        thisTrailRenderer = gameObject.GetComponent<TrailRenderer>();
     }
 
-    IEnumerator get3AxisFinal()
+    MeshRenderer thisMeshRenderer;
+    TrailRenderer thisTrailRenderer;
+
+    private void Update()
+    {
+        if ( avgSpeedSeg != 0 && (thisMeshRenderer.enabled == true || thisTrailRenderer == false)){
+            thisMeshRenderer.enabled = false;
+            thisTrailRenderer.enabled = true;
+        }
+        else if (avgSpeedSeg == 0 && (thisMeshRenderer.enabled == false || thisTrailRenderer == true))
+        {
+            thisMeshRenderer.enabled = true;
+            thisTrailRenderer.enabled = false;
+        }
+    }
+
+    IEnumerator Get3AxisFinal()
     {
         oldLocalX = obj.transform.localPosition.x;
         oldLocalY = obj.transform.localPosition.y;
@@ -78,15 +98,15 @@ public class HandMotionDetect : MonoBehaviour
         {
             DeltaLocalX = obj.transform.localPosition.x - oldLocalX;
             oldLocalX = obj.transform.localPosition.x;
-            getPosFinal(ref xSlot1, ref xSlot2, ref xFinal, ref xOppCount, ref xIsNeg, DeltaLocalX);
+            GetPosFinal(ref xSlot1, ref xSlot2, ref xFinal, ref xOppCount, ref xIsNeg, DeltaLocalX);
 
             DeltaLocalY = obj.transform.localPosition.y - oldLocalY;
             oldLocalY = obj.transform.localPosition.y;
-            getPosFinal(ref ySlot1, ref ySlot2, ref yFinal, ref yOppCount, ref yIsNeg, DeltaLocalY);
+            GetPosFinal(ref ySlot1, ref ySlot2, ref yFinal, ref yOppCount, ref yIsNeg, DeltaLocalY);
 
             DeltaLocalZ = obj.transform.localPosition.z - oldLocalZ;
             oldLocalZ = obj.transform.localPosition.z;
-            getPosFinal(ref zSlot1, ref zSlot2, ref zFinal, ref zOppCount, ref zIsNeg, DeltaLocalZ);
+            GetPosFinal(ref zSlot1, ref zSlot2, ref zFinal, ref zOppCount, ref zIsNeg, DeltaLocalZ);
 
             yield return new WaitForSeconds(0.03f);
         }
@@ -95,7 +115,7 @@ public class HandMotionDetect : MonoBehaviour
 
 
 
-    void getPosFinal(ref float slot1, ref float slot2, ref float final, ref int oppCount, ref bool isNeg,float DeltaLocalP)
+    void GetPosFinal(ref float slot1, ref float slot2, ref float final, ref int oppCount, ref bool isNeg,float DeltaLocalP)
     {
 
         if (!isNeg)
@@ -148,7 +168,7 @@ public class HandMotionDetect : MonoBehaviour
         }
     }
 
-    IEnumerator waitToCheckDistance()
+    IEnumerator WaitToCheckDistance()
     {
         while(true){
             if ((xFinal != 0 && yFinal != 0 )|| (yFinal != 0 && zFinal != 0)|| (xFinal != 0 && zFinal != 0)) {//&& zFinal != 0){
@@ -166,7 +186,7 @@ public class HandMotionDetect : MonoBehaviour
         }
     }
 
-    IEnumerator averageSpeed()
+    IEnumerator AverageSpeed()
     {
         while (true) {
             avgSpeedSeg = (float)preSpeedSeg / (float) freqAvgSpeed;
@@ -183,7 +203,7 @@ public class HandMotionDetect : MonoBehaviour
             {
                 avgSpeed += speedSeg;
             }
-            avgSpeed = avgSpeed / 4;
+            avgSpeed /= 4;
 
             yield return new WaitForSeconds(freqAvgSpeed);
         }
