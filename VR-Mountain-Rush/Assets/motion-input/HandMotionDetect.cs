@@ -35,7 +35,6 @@ public class HandMotionDetect : MonoBehaviour
     float oldLocalZ;
 
     public GameObject obj;
-    TrailRenderer tr;
 
     public float freqAvgSpeed = 0.5f;
     float preSpeedSeg = 0f;
@@ -46,16 +45,17 @@ public class HandMotionDetect : MonoBehaviour
 
     Queue<float> queueAverageSpeed = new Queue<float>(4);
 
-    
+    public SkinnedMeshRenderer thisMeshRenderer;
+    public TrailRenderer thisTrailRenderer;
+
     void Start()
     {
         obj = this.gameObject;
-        tr = obj.GetComponent<TrailRenderer>();
 
-        tr.time = 1;
-        tr.startWidth = 0.1f;
-        tr.endWidth = 0.01f;
-        tr.endColor = new Color(1,1,1,0);
+        thisTrailRenderer.time = 1;
+        thisTrailRenderer.startWidth = 0.05f;
+        thisTrailRenderer.endWidth = 0f;
+        thisTrailRenderer.endColor = new Color(1,1,1,0);
 
         queueAverageSpeed.Enqueue(0);
         queueAverageSpeed.Enqueue(0);
@@ -67,13 +67,7 @@ public class HandMotionDetect : MonoBehaviour
         StartCoroutine(AverageSpeed());
         StartCoroutine(Get3AxisFinal());
 
-
-        thisMeshRenderer = gameObject.GetComponent<MeshRenderer>();
-        thisTrailRenderer = gameObject.GetComponent<TrailRenderer>();
     }
-
-    MeshRenderer thisMeshRenderer;
-    TrailRenderer thisTrailRenderer;
 
     private void Update()
     {
@@ -193,7 +187,7 @@ public class HandMotionDetect : MonoBehaviour
             preSpeedSeg = 0;
 
 
-            tr.startColor = new Color(1, 1 / (avgSpeedSeg * 3f), 1 / (avgSpeedSeg * 3f), 1);
+            thisTrailRenderer.startColor = new Color(1, 1 / (avgSpeedSeg * 3f), 1 / (avgSpeedSeg * 3f), 1);
 
             queueAverageSpeed.Dequeue();
             queueAverageSpeed.Enqueue(avgSpeedSeg);

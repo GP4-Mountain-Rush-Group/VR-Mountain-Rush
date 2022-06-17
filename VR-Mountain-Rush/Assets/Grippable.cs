@@ -39,5 +39,5 @@ public class Grippable : MonoBehaviour
         gameObject.transform.localRotation = origLocRot;
     }
 
-    2*x(2-x)\-1
+    //2*x(2-x)\-1
 }

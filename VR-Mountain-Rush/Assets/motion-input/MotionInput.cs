@@ -22,8 +22,6 @@ public class MotionInput : MonoBehaviour
     void Update()
     {
         averageHandSpeed = (speedL.avgSpeedSeg + speedR.avgSpeedSeg)/2;
-
-        Debug.Log(averageHandSpeed);
     }
     
     

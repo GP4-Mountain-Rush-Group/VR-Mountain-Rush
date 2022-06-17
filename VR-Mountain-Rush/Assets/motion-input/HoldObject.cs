@@ -13,9 +13,9 @@ public class HoldObject : MonoBehaviour
 
     bool isGripping = false;
     GameObject holdingObj;
-    Vector3 beforeGripDistance;
-    Quaternion beforeGripRotation;
-
+    Vector3 beforeGripObjDistance;
+    Quaternion beforeGripObjRotation;
+    Quaternion beforeGripHandRotation;
 
     InputDevice contro;
 
@@ -31,7 +31,7 @@ public class HoldObject : MonoBehaviour
             controChara = InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
         InputDevices.GetDevicesWithCharacteristics(controChara, listContro);
         contro = listContro[0];
-        
+
     }
 
     // Update is called once per frame
@@ -53,27 +53,29 @@ public class HoldObject : MonoBehaviour
     {
         if (other.CompareTag("grippable"))
         {
-            Debug.Log(other);
             if (grip)
             {
                 if (!isGripping)
                 {
                     holdingObj = other.gameObject;
-                    beforeGripDistance = holdingObj.transform.position - transform.position;
-                    beforeGripRotation = holdingObj.transform.rotation;
+                    holdingObj.GetComponent<Rigidbody>().isKinematic = true;
+                    beforeGripObjDistance = holdingObj.transform.position - transform.position;
+                    beforeGripObjRotation = holdingObj.transform.rotation;
+                    beforeGripHandRotation = transform.rotation;
                     isGripping = true;
 
                 }
                 else
                 {
-                    holdingObj.transform.position = transform.position + beforeGripDistance;
-                    holdingObj.transform.rotation = transform.rotation * Quaternion.Inverse(beforeGripRotation);
+                    holdingObj.transform.position = transform.position + beforeGripObjDistance;
+                    holdingObj.transform.rotation = transform.rotation * Quaternion.Inverse(beforeGripHandRotation) * beforeGripObjRotation;
                 }
                     
 
             }
             else if (!grip)
             {
+                holdingObj.GetComponent<Rigidbody>().isKinematic = false;
                 isGripping = false;
                 holdingObj = null;
             }
