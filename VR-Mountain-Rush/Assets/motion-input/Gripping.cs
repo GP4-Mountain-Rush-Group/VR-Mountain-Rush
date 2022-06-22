@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-public class HoldObject : MonoBehaviour
+public class Gripping : MonoBehaviour
 {
     public bool handIsLeft;
 
@@ -13,6 +13,7 @@ public class HoldObject : MonoBehaviour
 
     bool isGripping = false;
     GameObject holdingObj;
+    Transform holdingObjParent;
     Vector3 beforeGripObjDistance;
     Quaternion beforeGripObjRotation;
     Quaternion beforeGripHandRotation;
@@ -20,6 +21,9 @@ public class HoldObject : MonoBehaviour
     InputDevice contro;
 
     bool grip;
+
+    HandMotionDetect handMotion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,7 @@ public class HoldObject : MonoBehaviour
         InputDevices.GetDevicesWithCharacteristics(controChara, listContro);
         contro = listContro[0];
 
+        handMotion = GetComponent<HandMotionDetect>();
     }
 
     // Update is called once per frame
@@ -44,9 +49,13 @@ public class HoldObject : MonoBehaviour
         //oldPos = nowPos;
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
-        
+        //if (grip && isGripping)
+        //{
+        //    holdingObj.GetComponent<Rigidbody>().MovePosition(transform.position + beforeGripObjDistance);
+        //    holdingObj.GetComponent<Rigidbody>().MoveRotation(transform.rotation * Quaternion.Inverse(beforeGripHandRotation) * beforeGripObjRotation);
+        //}
     }
 
     void OnTriggerStay(Collider other)
@@ -59,6 +68,8 @@ public class HoldObject : MonoBehaviour
                 {
                     holdingObj = other.gameObject;
                     holdingObj.GetComponent<Rigidbody>().isKinematic = true;
+                    holdingObjParent = holdingObj.transform.parent;
+                    holdingObj.transform.SetParent(transform);
                     beforeGripObjDistance = holdingObj.transform.position - transform.position;
                     beforeGripObjRotation = holdingObj.transform.rotation;
                     beforeGripHandRotation = transform.rotation;
@@ -67,15 +78,17 @@ public class HoldObject : MonoBehaviour
                 }
                 else
                 {
-                    holdingObj.transform.position = transform.position + beforeGripObjDistance;
-                    holdingObj.transform.rotation = transform.rotation * Quaternion.Inverse(beforeGripHandRotation) * beforeGripObjRotation;
+                    //holdingObj.transform.position = transform.position + beforeGripObjDistance;
+                    //holdingObj.transform.rotation = transform.rotation * Quaternion.Inverse(beforeGripHandRotation) * beforeGripObjRotation;
                 }
                     
 
             }
-            else if (!grip)
+            else if (!grip && holdingObj != null)
             {
                 holdingObj.GetComponent<Rigidbody>().isKinematic = false;
+                holdingObj.transform.SetParent(holdingObjParent);
+                holdingObj.GetComponent<Rigidbody>().velocity = OVRInput.
                 isGripping = false;
                 holdingObj = null;
             }

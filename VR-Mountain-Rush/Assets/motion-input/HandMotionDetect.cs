@@ -27,12 +27,15 @@ public class HandMotionDetect : MonoBehaviour
     public float zFinal = 0;
 
 
-    float DeltaLocalX;
+    public float DeltaLocalX;
     float oldLocalX;
-    float DeltaLocalY;
+    public float DeltaLocalY;
     float oldLocalY;
-    float DeltaLocalZ;
+    public float DeltaLocalZ;
     float oldLocalZ;
+
+    public Quaternion DeltaRotation;
+    public Quaternion oldRotation;
 
     public GameObject obj;
 
@@ -66,6 +69,7 @@ public class HandMotionDetect : MonoBehaviour
         StartCoroutine(WaitToCheckDistance());
         StartCoroutine(AverageSpeed());
         StartCoroutine(Get3AxisFinal());
+        StartCoroutine(GetDeltaRotation());
 
     }
 
@@ -102,11 +106,22 @@ public class HandMotionDetect : MonoBehaviour
             oldLocalZ = obj.transform.localPosition.z;
             GetPosFinal(ref zSlot1, ref zSlot2, ref zFinal, ref zOppCount, ref zIsNeg, DeltaLocalZ);
 
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForFixedUpdate();
         }
 
     }
+    IEnumerator GetDeltaRotation()
+    {
+        oldRotation = obj.transform.rotation;
 
+        while (true)
+        {
+            DeltaRotation = obj.transform.rotation * Quaternion.Inverse(oldRotation);
+            oldRotation = obj.transform.rotation;
+
+            yield return new WaitForFixedUpdate();
+        }
+    }
 
 
     void GetPosFinal(ref float slot1, ref float slot2, ref float final, ref int oppCount, ref bool isNeg,float DeltaLocalP)
