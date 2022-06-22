@@ -10,9 +10,12 @@ public class Grippable : MonoBehaviour
 
     public Vector3 gripPosition;
     public Quaternion gripRotation;
-    public bool onGripRotate = true;
-    public bool offGripReset = true;
-    public bool IsReleased = false;
+    public bool GripRotate = true;
+    public bool GripPosit = true;
+    public bool releaseReset = true;
+    public bool IsGripped = false;
+    public bool IsKinematic = true;
+    bool resetCompleted = true;
 
     private void Start()
     {
@@ -34,16 +37,21 @@ public class Grippable : MonoBehaviour
 
     public void GripObject(Transform handTransform)
     {
-        IsReleased = false;
+        IsGripped = true;
+        if (GripPosit)
         transform.position = handTransform.position + gripPosition;
+        
+        if (GripRotate)
         transform.rotation = handTransform.rotation * gripRotation;
+
+        resetCompleted = false;
     }
 
 
 
     public void ReleaseObject()
     {
-        IsReleased = true;
+        IsGripped = false;
     }
 
     IEnumerator resetAnimation()
@@ -51,7 +59,7 @@ public class Grippable : MonoBehaviour
         while (true)
         {
             
-            if (offGripReset == true && IsReleased == true)
+            if (releaseReset == true && IsGripped == false && resetCompleted == false)
             {
                 Vector3 dfiV = origLocPos - gameObject.transform.localPosition;
                 Quaternion dfiQ = origLocRot;
@@ -61,7 +69,7 @@ public class Grippable : MonoBehaviour
 
                 for (float t = 0; t <= 1; t += Time.deltaTime)
                 {
-                    if (IsReleased == false)
+                    if (IsGripped)
                         break;
 
                     gameObject.transform.localPosition = diV + dfiV * (2 * t * (2 - t)/2);
@@ -69,9 +77,10 @@ public class Grippable : MonoBehaviour
 
                     yield return 0;
                 }
-                
-                IsReleased = false;
-                
+                if (!IsGripped)
+                    resetCompleted = true;
+
+
 
             }
             yield return 0;
@@ -89,7 +98,7 @@ Vector3 dfiV = origLocPos - gameObject.transform.localPosition;
 
                 for (float t = 0; t < 1; t += Time.deltaTime)
                 {
-                    if (IsReleased == false)
+                    if (IsGripped == true)
                         break;
 
                     gameObject.transform.localPosition = diV + dfiV*(2*t*(2-t)/-1);
