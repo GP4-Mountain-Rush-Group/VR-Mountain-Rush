@@ -166,7 +166,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 8000
     damper: 2000
-    targetPosition: 0.5
+    targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20
@@ -384,10 +384,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   control: 0
-  maxAcceleration: 80
-  brakeAcceleration: 100
+  maxAcceleration: 200
+  brakeAcceleration: 0
   turnSensitivity: 1
-  maxSteerAngle: 30
+  maxSteerAngle: 45
   _centerOfMass: {x: 0, y: 0, z: 0}
   wheels:
   - wheelModel: {fileID: 4361683373693897783}
@@ -400,6 +400,7 @@ MonoBehaviour:
     wheelEffectObj: {fileID: 0}
     smokeParticle: {fileID: 0}
     axel: 1
+  eulerAngZ: 0
 --- !u!1 &1293067043
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +444,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 8000
     damper: 2000
-    targetPosition: 0.5
+    targetPosition: 1
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
   m_Mass: 20

@@ -42,7 +42,10 @@ public class CarController : MonoBehaviour
     float steerInput;
 
     private Rigidbody carRb;
+    Vector3 m_EulerAngleVelocity;
 
+    [SerializeField]
+    float eulerAngZ;
     //private CarLights carLights;
 
     void Start()
@@ -55,7 +58,22 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-     
+        eulerAngZ = transform.eulerAngles.z;
+        if (transform.eulerAngles.z < 357 && transform.eulerAngles.z > 350)
+        {
+            m_EulerAngleVelocity = new Vector3(0, 0, 50);
+            Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
+            carRb.MoveRotation(carRb.rotation * deltaRotation);
+            Debug.Log("<-2");
+        }
+
+        if (transform.eulerAngles.z > 3 && transform.eulerAngles.z < 10)
+        {
+            m_EulerAngleVelocity = new Vector3(0, 0, -50);
+            Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
+            carRb.MoveRotation(carRb.rotation * deltaRotation);
+            Debug.Log(">2");
+        }
     }
     void Update()
     {
