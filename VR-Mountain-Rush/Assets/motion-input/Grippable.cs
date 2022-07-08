@@ -67,7 +67,7 @@ public class Grippable : MonoBehaviour
                 Vector3 diV = gameObject.transform.localPosition;
                 Quaternion diQ = gameObject.transform.localRotation;
 
-                for (float t = 0; t <= 1; t += Time.deltaTime)
+                for (float t = 0; t <= 1; t += Time.deltaTime*4)
                 {
                     if (IsGripped)
                         break;

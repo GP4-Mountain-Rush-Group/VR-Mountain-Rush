@@ -5,26 +5,24 @@ using UnityEngine;
 public class bicycleHandle : MonoBehaviour
 {
     public float finalAngle = 0;
-    public GameObject center;
-    public GameObject leftHandle;
-    public GameObject rightHandle;
-    public Vector3 handleScale = new Vector3(0.5f,0.1f,0.1f);
-    
-    
+    public Transform center;
+    public Transform leftHandle;
+    public Transform rightHandle;
+    public Vector3 handleScale = new Vector3(0.5f, 0.1f, 0.1f);
+    public float handleOffset = 0.5f;
+    public float maxTurningAngle = 45;
+
     Transform leftHandleSepa;
     Transform rightHandleSepa;
-
-    float leftDistance = 0;
-    float rightDistance = 0;
-
-    float leftAngle = -90;
-    float rightAngle = 90;
+    float turnRemainAngle = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        leftHandleSepa = leftHandle.transform.GetChild(0);
-        rightHandleSepa = rightHandle.transform.GetChild(0);
+        leftHandle.localPosition = new Vector3(-handleOffset, 0, 0);
+        rightHandle.localPosition = new Vector3(handleOffset, 0, 0);
+        leftHandleSepa = leftHandle.GetChild(0);
+        rightHandleSepa = rightHandle.GetChild(0);
         leftHandleSepa.localScale = handleScale;
         rightHandleSepa.localScale = handleScale;
     }
@@ -32,9 +30,37 @@ public class bicycleHandle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        leftDistance = Mathf.Sqrt(leftHandleSepa.localPosition.x * leftHandleSepa.localPosition.x + leftHandleSepa.localPosition.y * leftHandleSepa.localPosition.y + leftHandleSepa.localPosition.z * leftHandleSepa.localPosition.z);
-        rightDistance = Mathf.Sqrt(rightHandleSepa.localPosition.x * rightHandleSepa.localPosition.x + rightHandleSepa.localPosition.y * rightHandleSepa.localPosition.y + rightHandleSepa.localPosition.z * rightHandleSepa.localPosition.z);
+        if (leftHandleSepa.GetComponent<Grippable>().IsGripped)
+            leftHandle.position = leftHandleSepa.position;
+        else
+            leftHandle.localPosition = new Vector3(-handleOffset, 0, 0);
 
-        
+        if (rightHandleSepa.GetComponent<Grippable>().IsGripped)
+            rightHandle.position = rightHandleSepa.position;
+        else
+            rightHandle.localPosition = new Vector3(handleOffset, 0, 0);
+
+        Vector3 handleDistance = leftHandle.localPosition - rightHandle.localPosition;
+        turnRemainAngle = Mathf.Atan((-handleDistance.z) / handleDistance.x) * Mathf.Rad2Deg;
+        center.localEulerAngles += new Vector3(0, +turnRemainAngle, 0);
+
+        if (center.localEulerAngles.y > maxTurningAngle && center.localEulerAngles.y < 180)
+        {
+            center.localEulerAngles = new Vector3(0, 45, 0);
+            Debug.Log("type 1");
+        }
+
+        if ((center.localEulerAngles.y < (-maxTurningAngle) && center.localEulerAngles.y > -180) || (center.localEulerAngles.y < (360 - maxTurningAngle) && center.localEulerAngles.y > 180))
+        {
+            center.localEulerAngles = new Vector3(0, -45, 0);
+            Debug.Log("type 2");
+        }
+
+        finalAngle = center.localEulerAngles.y;
+    }
+
+    float GetTurnedAngle()
+    {
+        return finalAngle;
     }
 }
