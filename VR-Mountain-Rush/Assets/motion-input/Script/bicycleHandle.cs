@@ -45,16 +45,11 @@ public class bicycleHandle : MonoBehaviour
         center.localEulerAngles += new Vector3(0, +turnRemainAngle, 0);
 
         if (center.localEulerAngles.y > maxTurningAngle && center.localEulerAngles.y < 180)
-        {
             center.localEulerAngles = new Vector3(0, 45, 0);
-            Debug.Log("type 1");
-        }
 
         if ((center.localEulerAngles.y < (-maxTurningAngle) && center.localEulerAngles.y > -180) || (center.localEulerAngles.y < (360 - maxTurningAngle) && center.localEulerAngles.y > 180))
-        {
             center.localEulerAngles = new Vector3(0, -45, 0);
-            Debug.Log("type 2");
-        }
+
 
         finalAngle = center.localEulerAngles.y;
     }
