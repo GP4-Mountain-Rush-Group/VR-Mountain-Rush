@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class WaterController : MonoBehaviour
 {
     [SerializeField] GameObject waterFeild;
-    [SerializeField] private float water;
+    [SerializeField] private static float water;
     [SerializeField] private static float waterSpeed;
     [SerializeField] private float wTime;
     // Start is called before the first frame update
@@ -27,6 +27,11 @@ public class WaterController : MonoBehaviour
     {
         waterSpeed = x;
         Debug.Log(x);
+    }
+
+    public static void addWater(float x)
+    {
+        water = water + x;
     }
     private void UpdateWater(float x)
     {
