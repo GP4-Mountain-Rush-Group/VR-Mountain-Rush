@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5105437677774094679}
   - component: {fileID: 5105437677774094676}
+  - component: {fileID: 3141249803379092265}
   m_Layer: 0
   m_Name: XRRig
   m_TagString: Untagged
@@ -51,6 +52,21 @@ MonoBehaviour:
   m_TrackingOriginMode: 1
   m_TrackingSpace: 0
   m_CameraYOffset: 1.36144
+--- !u!114 &3141249803379092265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5105437677774094677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092abcf9aa87ace418952e8e0a14e3db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left: {fileID: 5105437677788307014}
+  right: {fileID: 5105437678740888756}
+  averageHandSpeed: 0
 --- !u!1 &5105437677788307014
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,8 +147,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.06
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.05
+  m_Center: {x: 0.02, y: -0.03, z: 0}
 --- !u!96 &5105437677788307020
 TrailRenderer:
   serializedVersion: 2
@@ -340,8 +356,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.06
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.05
+  m_Center: {x: -0.02, y: -0.03, z: 0}
 --- !u!96 &5105437678740888754
 TrailRenderer:
   serializedVersion: 2

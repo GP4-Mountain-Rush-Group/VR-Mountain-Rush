@@ -23,6 +23,9 @@ public class MotionInput : MonoBehaviour
     {
         averageHandSpeed = (speedL.avgSpeedSeg + speedR.avgSpeedSeg)/2;
     }
-    
-    
+
+    public float GetAverageHandSpeed()
+    {
+        return averageHandSpeed;
+    }
 }

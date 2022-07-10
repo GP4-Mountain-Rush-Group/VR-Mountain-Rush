@@ -56,7 +56,7 @@ public class HandMotionDetect : MonoBehaviour
         obj = this.gameObject;
 
         thisTrailRenderer.time = 1;
-        thisTrailRenderer.startWidth = 0.05f;
+        thisTrailRenderer.startWidth = 0.02f;
         thisTrailRenderer.endWidth = 0f;
         thisTrailRenderer.endColor = new Color(1,1,1,0);
 
