@@ -6,6 +6,7 @@ using UnityEngine.XR;
 public class Gripping : MonoBehaviour
 {
     public bool handIsLeft;
+    public Animator handAnimator;
 
     Vector3 oldPos;
     Vector3 nowPos;
@@ -22,8 +23,11 @@ public class Gripping : MonoBehaviour
 
     VRAction vra;
     bool grip;
+    bool trig;
 
     HandMotionDetect handMotion;
+
+
 
     private void Awake()
     {
@@ -55,17 +59,26 @@ public class Gripping : MonoBehaviour
         //handMotion = GetComponent<HandMotionDetect>();
     }
 
+    void FixedUpdate()
+    {
+        if (handIsLeft)
+        {
+            grip = (vra.hand.gripLeft.ReadValue<float>() != 0);
+            trig = (vra.hand.TrigLeft.ReadValue<float>() != 0);
+        }
+        else
+        {
+            grip = (vra.hand.gripRight.ReadValue<float>() != 0);
+            trig = (vra.hand.TrigRight.ReadValue<float>() != 0);
+        }
+
+        handAnimator.SetBool("Gripped", grip);
+        handAnimator.SetBool("Triggered", trig);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //contro.TryGetFeatureValue(CommonUsages.gripButton, out grip);
-        if (handIsLeft)
-            grip = (vra.hand.gripLeft.ReadValue<float>() != 0);
-        else
-            grip = (vra.hand.gripRight.ReadValue<float>() != 0);
-
-
-
 
         if (!grip && holdingObj != null)
         {
@@ -85,15 +98,6 @@ public class Gripping : MonoBehaviour
         //oldPos = nowPos;
     }
 
-    void FixedUpdate()
-    {
-        //if (grip && isGripping)
-        //{
-        //    holdingObj.GetComponent<Rigidbody>().MovePosition(transform.position + beforeGripObjDistance);
-        //    holdingObj.GetComponent<Rigidbody>().MoveRotation(transform.rotation * Quaternion.Inverse(beforeGripHandRotation) * beforeGripObjRotation);
-        //}
-    }
-
     void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("grippable"))
@@ -111,7 +115,6 @@ public class Gripping : MonoBehaviour
                     beforeGripObjRotation = holdingObj.transform.rotation;
                     beforeGripHandRotation = transform.rotation;
                     isGripping = true;
-
                 }
                 else
                 {

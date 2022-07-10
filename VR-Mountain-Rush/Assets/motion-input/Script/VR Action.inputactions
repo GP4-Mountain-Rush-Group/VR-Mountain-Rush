@@ -36,6 +36,22 @@
                     "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TrigLeft",
+                    "type": "PassThrough",
+                    "id": "5ef35065-1233-4c49-aca2-93ca75d2734a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TrigRight",
+                    "type": "PassThrough",
+                    "id": "12ae077c-c16a-4c51-9cab-4743296087f9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -102,6 +118,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "veloRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d24c56dc-4b49-40fa-8886-918d903e2515",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TrigLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "44ad67bf-0e17-4565-807e-9510d37e1f2e",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TrigRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

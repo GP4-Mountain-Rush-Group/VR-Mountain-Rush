@@ -75,11 +75,12 @@ public class HandMotionDetect : MonoBehaviour
 
     private void Update()
     {
-        if ( avgSpeedSeg != 0 && (thisMeshRenderer.enabled == true || thisTrailRenderer == false)){
+        Debug.Log(avgSpeedSeg);
+        if ( avgSpeedSeg > 1 && (thisMeshRenderer.enabled == true || thisTrailRenderer == false)){
             thisMeshRenderer.enabled = false;
             thisTrailRenderer.enabled = true;
         }
-        else if (avgSpeedSeg == 0 && (thisMeshRenderer.enabled == false || thisTrailRenderer == true))
+        else if (avgSpeedSeg <= 1 && (thisMeshRenderer.enabled == false || thisTrailRenderer == true))
         {
             thisMeshRenderer.enabled = true;
             thisTrailRenderer.enabled = false;

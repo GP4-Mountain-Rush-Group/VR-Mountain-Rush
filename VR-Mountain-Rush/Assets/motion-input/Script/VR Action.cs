@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/motion-input/VR Action.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/motion-input/Script/VR Action.inputactions'
 
 using System;
 using System.Collections;
@@ -47,6 +47,22 @@ public class @VRAction : IInputActionCollection, IDisposable
                     ""type"": ""Value"",
                     ""id"": ""239824ad-c170-4ec6-bd3a-a665f682e340"",
                     ""expectedControlType"": ""Vector3"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TrigLeft"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""5ef35065-1233-4c49-aca2-93ca75d2734a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""TrigRight"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""12ae077c-c16a-4c51-9cab-4743296087f9"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -117,6 +133,28 @@ public class @VRAction : IInputActionCollection, IDisposable
                     ""action"": ""veloRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d24c56dc-4b49-40fa-8886-918d903e2515"",
+                    ""path"": ""<XRController>{LeftHand}/triggerPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TrigLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44ad67bf-0e17-4565-807e-9510d37e1f2e"",
+                    ""path"": ""<XRController>{RightHand}/triggerPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TrigRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -129,6 +167,8 @@ public class @VRAction : IInputActionCollection, IDisposable
         m_hand_gripRight = m_hand.FindAction("gripRight", throwIfNotFound: true);
         m_hand_veloLeft = m_hand.FindAction("veloLeft", throwIfNotFound: true);
         m_hand_veloRight = m_hand.FindAction("veloRight", throwIfNotFound: true);
+        m_hand_TrigLeft = m_hand.FindAction("TrigLeft", throwIfNotFound: true);
+        m_hand_TrigRight = m_hand.FindAction("TrigRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,6 +222,8 @@ public class @VRAction : IInputActionCollection, IDisposable
     private readonly InputAction m_hand_gripRight;
     private readonly InputAction m_hand_veloLeft;
     private readonly InputAction m_hand_veloRight;
+    private readonly InputAction m_hand_TrigLeft;
+    private readonly InputAction m_hand_TrigRight;
     public struct HandActions
     {
         private @VRAction m_Wrapper;
@@ -190,6 +232,8 @@ public class @VRAction : IInputActionCollection, IDisposable
         public InputAction @gripRight => m_Wrapper.m_hand_gripRight;
         public InputAction @veloLeft => m_Wrapper.m_hand_veloLeft;
         public InputAction @veloRight => m_Wrapper.m_hand_veloRight;
+        public InputAction @TrigLeft => m_Wrapper.m_hand_TrigLeft;
+        public InputAction @TrigRight => m_Wrapper.m_hand_TrigRight;
         public InputActionMap Get() { return m_Wrapper.m_hand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,6 +255,12 @@ public class @VRAction : IInputActionCollection, IDisposable
                 @veloRight.started -= m_Wrapper.m_HandActionsCallbackInterface.OnVeloRight;
                 @veloRight.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnVeloRight;
                 @veloRight.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnVeloRight;
+                @TrigLeft.started -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigLeft;
+                @TrigLeft.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigLeft;
+                @TrigLeft.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigLeft;
+                @TrigRight.started -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigRight;
+                @TrigRight.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigRight;
+                @TrigRight.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigRight;
             }
             m_Wrapper.m_HandActionsCallbackInterface = instance;
             if (instance != null)
@@ -227,6 +277,12 @@ public class @VRAction : IInputActionCollection, IDisposable
                 @veloRight.started += instance.OnVeloRight;
                 @veloRight.performed += instance.OnVeloRight;
                 @veloRight.canceled += instance.OnVeloRight;
+                @TrigLeft.started += instance.OnTrigLeft;
+                @TrigLeft.performed += instance.OnTrigLeft;
+                @TrigLeft.canceled += instance.OnTrigLeft;
+                @TrigRight.started += instance.OnTrigRight;
+                @TrigRight.performed += instance.OnTrigRight;
+                @TrigRight.canceled += instance.OnTrigRight;
             }
         }
     }
@@ -237,5 +293,7 @@ public class @VRAction : IInputActionCollection, IDisposable
         void OnGripRight(InputAction.CallbackContext context);
         void OnVeloLeft(InputAction.CallbackContext context);
         void OnVeloRight(InputAction.CallbackContext context);
+        void OnTrigLeft(InputAction.CallbackContext context);
+        void OnTrigRight(InputAction.CallbackContext context);
     }
 }

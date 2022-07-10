@@ -39,10 +39,10 @@ public class Grippable : MonoBehaviour
     {
         IsGripped = true;
         if (GripPosit)
-        transform.position = handTransform.position + gripPosition;
+        transform.localPosition = gripPosition;
         
         if (GripRotate)
-        transform.rotation = handTransform.rotation * gripRotation;
+        transform.localRotation = gripRotation;
 
         resetCompleted = false;
     }

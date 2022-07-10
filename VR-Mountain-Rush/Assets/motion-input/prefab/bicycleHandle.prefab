@@ -192,7 +192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d5145eb74f84fb24786db2831fc92ffa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -258,8 +258,8 @@ MonoBehaviour:
   autoSetLocPosRot: 1
   origLocPos: {x: 0, y: 0, z: 0}
   origLocRot: {x: 0, y: 0, z: 0, w: 0}
-  gripPosition: {x: 0, y: 0, z: 0}
-  gripRotation: {x: 0, y: 0, z: 0, w: 0}
+  gripPosition: {x: -0.007, y: -0.04, z: -0.03}
+  gripRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   GripRotate: 1
   GripPosit: 1
   releaseReset: 1
@@ -315,6 +315,7 @@ MonoBehaviour:
   rightHandle: {fileID: 0}
   handleScale: {x: 0.5, y: 0.1, z: 0.1}
   handleOffset: 0.5
+  maxTurningAngle: 45
 --- !u!1 &6619260975034403179
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +410,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d5145eb74f84fb24786db2831fc92ffa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -475,8 +476,8 @@ MonoBehaviour:
   autoSetLocPosRot: 1
   origLocPos: {x: 0, y: 0, z: 0}
   origLocRot: {x: 0, y: 0, z: 0, w: 0}
-  gripPosition: {x: 0, y: 0, z: 0}
-  gripRotation: {x: 0, y: 0, z: 0, w: 0}
+  gripPosition: {x: -0.007, y: -0.04, z: -0.03}
+  gripRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   GripRotate: 1
   GripPosit: 1
   releaseReset: 1
