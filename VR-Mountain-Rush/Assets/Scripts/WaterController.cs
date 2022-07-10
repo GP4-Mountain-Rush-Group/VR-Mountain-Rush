@@ -12,7 +12,7 @@ public class WaterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        water = 20f;
+        water = 1120f;
         waterSpeed = 1;
     }
 

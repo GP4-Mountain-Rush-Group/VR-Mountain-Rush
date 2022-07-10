@@ -20,6 +20,7 @@ public class CarController : MonoBehaviour
     public struct Wheel
     {
         public GameObject wheelModel;
+        public GameObject handleModel;
         public WheelCollider wheelCollider;
         public GameObject wheelEffectObj;
         public ParticleSystem smokeParticle;
@@ -59,7 +60,7 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         eulerAngZ = transform.eulerAngles.z;
-        if (transform.eulerAngles.z < 357 && transform.eulerAngles.z > 350)
+        if (transform.eulerAngles.z < 355 && transform.eulerAngles.z > 345)
         {
             m_EulerAngleVelocity = new Vector3(0, 0, 50);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
@@ -67,7 +68,7 @@ public class CarController : MonoBehaviour
             Debug.Log("<-2");
         }
 
-        if (transform.eulerAngles.z > 3 && transform.eulerAngles.z < 10)
+        if (transform.eulerAngles.z > 5 && transform.eulerAngles.z < 15)
         {
             m_EulerAngleVelocity = new Vector3(0, 0, -50);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
@@ -162,20 +163,11 @@ public class CarController : MonoBehaviour
             wheel.wheelModel.transform.position = pos;
             wheel.wheelModel.transform.rotation = rot;
             wheel.wheelModel.transform.rotation *= Quaternion.Euler(0, -90, 0);
+            wheel.handleModel.transform.rotation = rot;
+            wheel.handleModel.transform.rotation *= Quaternion.Euler(0, 90, 0);
+            wheel.handleModel.transform.eulerAngles = new Vector3(wheel.handleModel.transform.eulerAngles.x, wheel.handleModel.transform.eulerAngles.y, 0);
         }
     }
-    /*void AnimateWheels()
-    {
-        foreach (var wheel in wheels)
-        {
-            Quaternion rot;
-            Vector3 pos;
-            rot = wheel.wheelCollider.transform.rotation;
-            pos = wheel.wheelCollider.transform.position;
-            wheel.wheelModel.transform.position = pos;
-            wheel.wheelModel.transform.rotation = rot;
-        }
-    }*/
 
     void WheelEffects()
     {
