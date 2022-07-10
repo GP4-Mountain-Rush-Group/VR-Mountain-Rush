@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bicycleHandle : MonoBehaviour
 {
-    public float finalAngle = 0;
+    public static float finalAngle = 0;
     public Transform center;
     public Transform leftHandle;
     public Transform rightHandle;
@@ -54,7 +54,7 @@ public class bicycleHandle : MonoBehaviour
         finalAngle = center.localEulerAngles.y;
     }
 
-    float GetTurnedAngle()
+    public static float GetTurnedAngle()
     {
         return finalAngle;
     }

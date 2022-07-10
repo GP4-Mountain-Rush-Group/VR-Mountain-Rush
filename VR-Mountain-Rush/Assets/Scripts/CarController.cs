@@ -20,7 +20,7 @@ public class CarController : MonoBehaviour
     public struct Wheel
     {
         public GameObject wheelModel;
-        public GameObject handleModel;
+        //public GameObject handleModel;
         public WheelCollider wheelCollider;
         public GameObject wheelEffectObj;
         public ParticleSystem smokeParticle;
@@ -60,17 +60,17 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         eulerAngZ = transform.eulerAngles.z;
-        if (transform.eulerAngles.z < 355 && transform.eulerAngles.z > 345)
+        if (transform.eulerAngles.z < 355 && transform.eulerAngles.z > 180)
         {
-            m_EulerAngleVelocity = new Vector3(0, 0, 50);
+            m_EulerAngleVelocity = new Vector3(0, 0, 20);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
             carRb.MoveRotation(carRb.rotation * deltaRotation);
             Debug.Log("<-2");
         }
 
-        if (transform.eulerAngles.z > 5 && transform.eulerAngles.z < 15)
+        if (transform.eulerAngles.z > 5 && transform.eulerAngles.z < 180)
         {
-            m_EulerAngleVelocity = new Vector3(0, 0, -50);
+            m_EulerAngleVelocity = new Vector3(0, 0, -20);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
             carRb.MoveRotation(carRb.rotation * deltaRotation);
             Debug.Log(">2");
@@ -104,8 +104,8 @@ public class CarController : MonoBehaviour
     {
         if (control == ControlMode.Keyboard)
         {
-            moveInput = Input.GetAxis("Vertical");
-            steerInput = Input.GetAxis("Horizontal");
+            moveInput = 2.2f;
+            steerInput = bicycleHandle.GetTurnedAngle();
         }
     }
 
@@ -113,7 +113,7 @@ public class CarController : MonoBehaviour
     {
         foreach (var wheel in wheels)
         {
-            wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
+            wheel.wheelCollider.motorTorque = moveInput * 300 * maxAcceleration * Time.deltaTime;
         }
     }
 
@@ -123,8 +123,9 @@ public class CarController : MonoBehaviour
         {
             if (wheel.axel == Axel.Front)
             {
-                var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
-                wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
+                //var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
+                //wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
+                wheel.wheelCollider.steerAngle = steerInput;
             }
         }
     }
@@ -163,9 +164,9 @@ public class CarController : MonoBehaviour
             wheel.wheelModel.transform.position = pos;
             wheel.wheelModel.transform.rotation = rot;
             wheel.wheelModel.transform.rotation *= Quaternion.Euler(0, -90, 0);
-            wheel.handleModel.transform.rotation = rot;
-            wheel.handleModel.transform.rotation *= Quaternion.Euler(0, 90, 0);
-            wheel.handleModel.transform.eulerAngles = new Vector3(wheel.handleModel.transform.eulerAngles.x, wheel.handleModel.transform.eulerAngles.y, 0);
+            //wheel.handleModel.transform.rotation = rot;
+            //wheel.handleModel.transform.rotation *= Quaternion.Euler(0, 90, 0);
+            //wheel.handleModel.transform.eulerAngles = new Vector3(wheel.handleModel.transform.eulerAngles.x, wheel.handleModel.transform.eulerAngles.y, 0);
         }
     }
 
