@@ -65,6 +65,22 @@ public class @VRAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreTrigLeft"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""acb0cbe7-3409-456c-998f-b80c60bf076e"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""PreTrigRight"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""92649db5-fb60-4864-be07-b2ba4717c86c"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -155,6 +171,28 @@ public class @VRAction : IInputActionCollection, IDisposable
                     ""action"": ""TrigRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""468a595a-b058-49f7-92ad-7b19428271d6"",
+                    ""path"": ""<OculusTouchController>{LeftHand}/triggerTouched"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreTrigLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88028d8d-42ed-425e-ab7d-e9d9d0652efc"",
+                    ""path"": ""<OculusTouchController>{RightHand}/triggerTouched"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PreTrigRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -169,6 +207,8 @@ public class @VRAction : IInputActionCollection, IDisposable
         m_hand_veloRight = m_hand.FindAction("veloRight", throwIfNotFound: true);
         m_hand_TrigLeft = m_hand.FindAction("TrigLeft", throwIfNotFound: true);
         m_hand_TrigRight = m_hand.FindAction("TrigRight", throwIfNotFound: true);
+        m_hand_PreTrigLeft = m_hand.FindAction("PreTrigLeft", throwIfNotFound: true);
+        m_hand_PreTrigRight = m_hand.FindAction("PreTrigRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -224,6 +264,8 @@ public class @VRAction : IInputActionCollection, IDisposable
     private readonly InputAction m_hand_veloRight;
     private readonly InputAction m_hand_TrigLeft;
     private readonly InputAction m_hand_TrigRight;
+    private readonly InputAction m_hand_PreTrigLeft;
+    private readonly InputAction m_hand_PreTrigRight;
     public struct HandActions
     {
         private @VRAction m_Wrapper;
@@ -234,6 +276,8 @@ public class @VRAction : IInputActionCollection, IDisposable
         public InputAction @veloRight => m_Wrapper.m_hand_veloRight;
         public InputAction @TrigLeft => m_Wrapper.m_hand_TrigLeft;
         public InputAction @TrigRight => m_Wrapper.m_hand_TrigRight;
+        public InputAction @PreTrigLeft => m_Wrapper.m_hand_PreTrigLeft;
+        public InputAction @PreTrigRight => m_Wrapper.m_hand_PreTrigRight;
         public InputActionMap Get() { return m_Wrapper.m_hand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -261,6 +305,12 @@ public class @VRAction : IInputActionCollection, IDisposable
                 @TrigRight.started -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigRight;
                 @TrigRight.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigRight;
                 @TrigRight.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnTrigRight;
+                @PreTrigLeft.started -= m_Wrapper.m_HandActionsCallbackInterface.OnPreTrigLeft;
+                @PreTrigLeft.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnPreTrigLeft;
+                @PreTrigLeft.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnPreTrigLeft;
+                @PreTrigRight.started -= m_Wrapper.m_HandActionsCallbackInterface.OnPreTrigRight;
+                @PreTrigRight.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnPreTrigRight;
+                @PreTrigRight.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnPreTrigRight;
             }
             m_Wrapper.m_HandActionsCallbackInterface = instance;
             if (instance != null)
@@ -283,6 +333,12 @@ public class @VRAction : IInputActionCollection, IDisposable
                 @TrigRight.started += instance.OnTrigRight;
                 @TrigRight.performed += instance.OnTrigRight;
                 @TrigRight.canceled += instance.OnTrigRight;
+                @PreTrigLeft.started += instance.OnPreTrigLeft;
+                @PreTrigLeft.performed += instance.OnPreTrigLeft;
+                @PreTrigLeft.canceled += instance.OnPreTrigLeft;
+                @PreTrigRight.started += instance.OnPreTrigRight;
+                @PreTrigRight.performed += instance.OnPreTrigRight;
+                @PreTrigRight.canceled += instance.OnPreTrigRight;
             }
         }
     }
@@ -295,5 +351,7 @@ public class @VRAction : IInputActionCollection, IDisposable
         void OnVeloRight(InputAction.CallbackContext context);
         void OnTrigLeft(InputAction.CallbackContext context);
         void OnTrigRight(InputAction.CallbackContext context);
+        void OnPreTrigLeft(InputAction.CallbackContext context);
+        void OnPreTrigRight(InputAction.CallbackContext context);
     }
 }

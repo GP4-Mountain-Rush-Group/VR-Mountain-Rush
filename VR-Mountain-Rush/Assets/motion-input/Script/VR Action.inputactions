@@ -52,6 +52,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "PreTrigLeft",
+                    "type": "PassThrough",
+                    "id": "acb0cbe7-3409-456c-998f-b80c60bf076e",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PreTrigRight",
+                    "type": "PassThrough",
+                    "id": "92649db5-fb60-4864-be07-b2ba4717c86c",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -140,6 +156,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "TrigRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "468a595a-b058-49f7-92ad-7b19428271d6",
+                    "path": "<OculusTouchController>{LeftHand}/triggerTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreTrigLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88028d8d-42ed-425e-ab7d-e9d9d0652efc",
+                    "path": "<OculusTouchController>{RightHand}/triggerTouched",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreTrigRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

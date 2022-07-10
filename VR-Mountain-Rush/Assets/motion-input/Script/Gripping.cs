@@ -24,6 +24,7 @@ public class Gripping : MonoBehaviour
     VRAction vra;
     bool grip;
     bool trig;
+    bool preTrig;
 
     HandMotionDetect handMotion;
 
@@ -65,14 +66,17 @@ public class Gripping : MonoBehaviour
         {
             grip = (vra.hand.gripLeft.ReadValue<float>() != 0);
             trig = (vra.hand.TrigLeft.ReadValue<float>() != 0);
+            preTrig = (vra.hand.PreTrigLeft.ReadValue<float>() != 0);
         }
         else
         {
             grip = (vra.hand.gripRight.ReadValue<float>() != 0);
             trig = (vra.hand.TrigRight.ReadValue<float>() != 0);
+            preTrig = (vra.hand.PreTrigRight.ReadValue<float>() != 0);
         }
 
         handAnimator.SetBool("Gripped", grip);
+        handAnimator.SetBool("PreTrigger",preTrig);
         handAnimator.SetBool("Triggered", trig);
     }
 

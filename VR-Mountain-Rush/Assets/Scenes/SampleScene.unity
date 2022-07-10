@@ -615,9 +615,9 @@ MonoBehaviour:
   gripRotation: {x: 0, y: 0, z: 0, w: 0}
   GripRotate: 0
   GripPosit: 0
-  releaseReset: 0
+  releaseReset: 1
   IsGripped: 0
-  IsKinematic: 0
+  IsKinematic: 1
 --- !u!1 &1728657555 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5105437677788307014, guid: 67d70b6453ac62d45825cba14db87260,
@@ -790,6 +790,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7154996785247247441, guid: 67d70b6453ac62d45825cba14db87260,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7251557209729066729, guid: 67d70b6453ac62d45825cba14db87260,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67d70b6453ac62d45825cba14db87260, type: 3}
