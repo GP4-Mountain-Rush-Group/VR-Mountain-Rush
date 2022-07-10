@@ -75,7 +75,6 @@ public class HandMotionDetect : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(avgSpeedSeg);
         if ( avgSpeedSeg > 1 && (thisMeshRenderer.enabled == true || thisTrailRenderer == false)){
             thisMeshRenderer.enabled = false;
             thisTrailRenderer.enabled = true;
