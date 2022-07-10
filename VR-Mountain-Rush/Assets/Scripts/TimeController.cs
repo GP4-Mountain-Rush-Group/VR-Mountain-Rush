@@ -20,10 +20,12 @@ public class TimeController : MonoBehaviour
     private DateTime currentTime;
     private TimeSpan sunriseTime;
     private TimeSpan sunsetTime;
+    private bool Day = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        startHour = UnityEngine.Random.Range(0, 24);
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
 
         sunriseTime = TimeSpan.FromHours(sunriseHour);
@@ -36,6 +38,15 @@ public class TimeController : MonoBehaviour
         UpdateTimeOfDay();
         RotateSun();
         UpdateLightSettings();
+        DayOrNight();
+    }
+
+    private void DayOrNight() 
+    { 
+        if(Day)
+            WaterController.setWaterSpeed(1f);
+        else
+            WaterController.setWaterSpeed(0.7f);
     }
 
     private void UpdateTimeOfDay()
@@ -55,6 +66,7 @@ public class TimeController : MonoBehaviour
             double percentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(0, 180, (float)percentage);
+            Day = true;
         }
         else
         {
@@ -64,6 +76,7 @@ public class TimeController : MonoBehaviour
             double percentage = timeSinceSunset.TotalMinutes / sunsetToSunriseDuration.TotalMinutes;
 
             sunLightRotation = Mathf.Lerp(180, 360, (float)percentage);
+            Day = false;
         }
 
         sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
