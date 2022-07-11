@@ -264,6 +264,8 @@ MonoBehaviour:
   GripPosit: 1
   releaseReset: 1
   IsGripped: 0
+  IsTriggered: 0
+  IsPreTrigger: 0
   IsKinematic: 1
 --- !u!1 &4928563094143776869
 GameObject:
@@ -275,6 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3955801247767698055}
   - component: {fileID: 1470031566573493588}
+  - component: {fileID: 772264233113290593}
   m_Layer: 0
   m_Name: bicycleHandle
   m_TagString: Untagged
@@ -316,6 +319,21 @@ MonoBehaviour:
   handleScale: {x: 0.5, y: 0.1, z: 0.1}
   handleOffset: 0.5
   maxTurningAngle: 45
+--- !u!114 &772264233113290593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928563094143776869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8e9a608242ed64ca85a87d31b0344d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handleLeft: {fileID: 5100047908813245230}
+  handleRight: {fileID: 9095332112170289565}
+  breakBicycle: 0
 --- !u!1 &6619260975034403179
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +500,8 @@ MonoBehaviour:
   GripPosit: 1
   releaseReset: 1
   IsGripped: 0
+  IsTriggered: 0
+  IsPreTrigger: 0
   IsKinematic: 1
 --- !u!1 &9077303188303459760
 GameObject:

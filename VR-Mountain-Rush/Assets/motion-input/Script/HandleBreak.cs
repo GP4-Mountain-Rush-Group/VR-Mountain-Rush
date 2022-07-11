@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class HandleBreak : MonoBehaviour
 {
-    bicycleHandle bicycleHandle;
-
+    public Grippable handleLeft;
+    public Grippable handleRight;
+    public bool breakBicycle;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,9 @@ public class HandleBreak : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (handleLeft.IsTriggered || handleRight.IsTriggered)
+            breakBicycle = true;
+        else
+            breakBicycle = false;
     }
 }
