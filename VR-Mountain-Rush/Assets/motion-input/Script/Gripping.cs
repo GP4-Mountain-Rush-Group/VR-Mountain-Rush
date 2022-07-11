@@ -83,7 +83,6 @@ public class Gripping : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (!grip && holdingObj != null)
         {
             if (!holdingObj.GetComponent<Grippable>().IsKinematic)
