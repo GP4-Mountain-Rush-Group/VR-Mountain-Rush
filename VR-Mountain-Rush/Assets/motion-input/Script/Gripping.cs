@@ -22,9 +22,9 @@ public class Gripping : MonoBehaviour
     InputDevice contro;
 
     VRAction vra;
-    bool grip;
-    bool trig;
-    bool preTrig;
+    public bool grip;
+    public bool trig;
+    public bool preTrig;
 
     HandMotionDetect handMotion;
 
@@ -122,6 +122,16 @@ public class Gripping : MonoBehaviour
                 }
                 else
                 {
+                    if (trig)
+                        holdingObj.GetComponent<Grippable>().IsTriggered = true;
+                    else
+                        holdingObj.GetComponent<Grippable>().IsTriggered = false;
+
+                    if (preTrig)
+                        holdingObj.GetComponent<Grippable>().IsPreTrigger = true;
+                    else
+                        holdingObj.GetComponent<Grippable>().IsPreTrigger = false;
+
                     //holdingObj.transform.position = transform.position + beforeGripObjDistance;
                     //holdingObj.transform.rotation = transform.rotation * Quaternion.Inverse(beforeGripHandRotation) * beforeGripObjRotation;
                 }
