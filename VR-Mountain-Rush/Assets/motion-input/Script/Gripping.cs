@@ -22,9 +22,9 @@ public class Gripping : MonoBehaviour
     InputDevice contro;
 
     VRAction vra;
-    bool grip;
-    bool trig;
-    bool preTrig;
+    public bool grip;
+    public bool trig;
+    public bool preTrig;
 
     HandMotionDetect handMotion;
 
