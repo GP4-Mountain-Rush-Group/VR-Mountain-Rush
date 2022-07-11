@@ -8,8 +8,13 @@ public class MainMenu : MonoBehaviour
 	{
 		Application.Quit();
 	}
-	public void StartGame()
+	public void StartTraining()
 	{
-		SceneManager.LoadScene("Level");
+		SceneManager.LoadScene("Training");
 	}
+	public void StartLevel1()
+	{
+		SceneManager.LoadScene("Level1");
+	}
+
 }
