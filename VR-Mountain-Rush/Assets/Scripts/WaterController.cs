@@ -7,18 +7,23 @@ public class WaterController : MonoBehaviour
 {
     [SerializeField] GameObject waterFeild;
     [SerializeField] private static float water;
+    [SerializeField] private float maxWater = 100f;
+    [SerializeField] private float currentwater;
     [SerializeField] private static float waterSpeed;
     [SerializeField] private float wTime;
     // Start is called before the first frame update
     void Start()
     {
-        water = 100f;
+        water = 75f;
         waterSpeed = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (water > maxWater)
+            water = maxWater;
+        currentwater = water;
         UpdateWater(waterSpeed);
         TipToDrink();
     }
@@ -26,7 +31,7 @@ public class WaterController : MonoBehaviour
     public static void setWaterSpeed(float x)
     {
         waterSpeed = x;
-        Debug.Log(x);
+        //Debug.Log(x);
     }
 
     public static void addWater(float x)

@@ -63,7 +63,7 @@ public class CarController : MonoBehaviour
             m_EulerAngleVelocity = new Vector3(0, 0, 20);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
             carRb.MoveRotation(carRb.rotation * deltaRotation);
-            Debug.Log("<-2");
+            //Debug.Log("<-2");
         }
 
         if (transform.eulerAngles.z > 5 && transform.eulerAngles.z < 180)
@@ -71,7 +71,7 @@ public class CarController : MonoBehaviour
             m_EulerAngleVelocity = new Vector3(0, 0, -20);
             Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
             carRb.MoveRotation(carRb.rotation * deltaRotation);
-            Debug.Log(">2");
+            //Debug.Log(">2");
         }
     }
     void Update()
