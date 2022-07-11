@@ -7,7 +7,8 @@ public class CarController : MonoBehaviour
     public enum ControlMode
     {
         Keyboard,
-        Buttons
+        Buttons,
+        VR
     };
 
     public enum Axel
@@ -22,18 +23,17 @@ public class CarController : MonoBehaviour
         public GameObject wheelModel;
         //public GameObject handleModel;
         public WheelCollider wheelCollider;
-        public GameObject wheelEffectObj;
-        public ParticleSystem smokeParticle;
         public Axel axel;
     }
 
     public ControlMode control;
 
-    public float maxAcceleration = 30.0f;
-    public float brakeAcceleration = 50.0f;
+    [SerializeField] float acceleration = 300f;
+    [SerializeField] float maxAcceleration = 30.0f;
+    [SerializeField] float brakeAcceleration = 50.0f;
 
-    public float turnSensitivity = 1.0f;
-    public float maxSteerAngle = 30.0f;
+    [SerializeField] float turnSensitivity = 1.0f;
+    [SerializeField] float maxSteerAngle = 45.0f;
 
     public Vector3 _centerOfMass;
 
@@ -47,14 +47,12 @@ public class CarController : MonoBehaviour
 
     [SerializeField]
     float eulerAngZ;
-    //private CarLights carLights;
 
     void Start()
     {
         carRb = GetComponent<Rigidbody>();
         carRb.centerOfMass = _centerOfMass;
 
-        //carLights = GetComponent<CarLights>();
     }
 
     private void FixedUpdate()
@@ -80,7 +78,6 @@ public class CarController : MonoBehaviour
     {
         GetInputs();
         AnimateWheels();
-        //WheelEffects();
     }
 
     void LateUpdate()
@@ -104,7 +101,12 @@ public class CarController : MonoBehaviour
     {
         if (control == ControlMode.Keyboard)
         {
-            moveInput = 2.2f;
+            moveInput = Input.GetAxis("Vertical");
+            steerInput = Input.GetAxis("Horizontal");
+        }
+        if (control == ControlMode.VR)
+        {
+            moveInput = MotionInput.GetAverageHandSpeed();
             steerInput = bicycleHandle.GetTurnedAngle();
         }
     }
@@ -113,7 +115,11 @@ public class CarController : MonoBehaviour
     {
         foreach (var wheel in wheels)
         {
-            wheel.wheelCollider.motorTorque = moveInput * 300 * maxAcceleration * Time.deltaTime;
+            if (control == ControlMode.VR)
+                wheel.wheelCollider.motorTorque = moveInput * acceleration * maxAcceleration * Time.deltaTime;
+            else
+                wheel.wheelCollider.motorTorque = moveInput * acceleration * 2  * maxAcceleration * Time.deltaTime;
+            carRb.velocity = Vector3.ClampMagnitude(carRb.velocity, maxAcceleration);
         }
     }
 
@@ -123,9 +129,16 @@ public class CarController : MonoBehaviour
         {
             if (wheel.axel == Axel.Front)
             {
-                //var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
-                //wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
-                wheel.wheelCollider.steerAngle = steerInput;
+                if (control == ControlMode.VR)
+                {
+                    wheel.wheelCollider.steerAngle = steerInput;
+                }
+                else 
+                {                    
+                    var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
+                    wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
+                }
+                
             }
         }
     }
@@ -138,9 +151,6 @@ public class CarController : MonoBehaviour
             {
                 wheel.wheelCollider.brakeTorque = 300 * brakeAcceleration * Time.deltaTime;
             }
-
-            //carLights.isBackLightOn = true;
-            //carLights.OperateBackLights();
         }
         else
         {
@@ -148,9 +158,6 @@ public class CarController : MonoBehaviour
             {
                 wheel.wheelCollider.brakeTorque = 0;
             }
-
-            //carLights.isBackLightOn = false;
-            //carLights.OperateBackLights();
         }
     }
 
@@ -167,24 +174,6 @@ public class CarController : MonoBehaviour
             //wheel.handleModel.transform.rotation = rot;
             //wheel.handleModel.transform.rotation *= Quaternion.Euler(0, 90, 0);
             //wheel.handleModel.transform.eulerAngles = new Vector3(wheel.handleModel.transform.eulerAngles.x, wheel.handleModel.transform.eulerAngles.y, 0);
-        }
-    }
-
-    void WheelEffects()
-    {
-        foreach (var wheel in wheels)
-        {
-            //var dirtParticleMainSettings = wheel.smokeParticle.main;
-
-            if (Input.GetKey(KeyCode.Space) && wheel.axel == Axel.Rear && wheel.wheelCollider.isGrounded == true && carRb.velocity.magnitude >= 10.0f)
-            {
-                wheel.wheelEffectObj.GetComponentInChildren<TrailRenderer>().emitting = true;
-                wheel.smokeParticle.Emit(1);
-            }
-            else
-            {
-                wheel.wheelEffectObj.GetComponentInChildren<TrailRenderer>().emitting = false;
-            }
         }
     }
 }

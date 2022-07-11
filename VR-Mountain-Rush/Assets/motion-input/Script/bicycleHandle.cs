@@ -16,6 +16,8 @@ public class bicycleHandle : MonoBehaviour
     Transform rightHandleSepa;
     float turnRemainAngle = 0;
 
+    public GameObject PosRef;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,8 @@ public class bicycleHandle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position = PosRef.transform.position;
+        transform.rotation = PosRef.transform.rotation;
         if (leftHandleSepa.GetComponent<Grippable>().IsGripped)
             leftHandle.position = leftHandleSepa.position;
         else
