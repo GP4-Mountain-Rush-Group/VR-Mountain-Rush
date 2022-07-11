@@ -11,7 +11,8 @@
                     "id": "558cd3df-d054-4a02-9bf1-120d4c540ed2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "gripRight",
@@ -19,7 +20,8 @@
                     "id": "45a6471d-ef5f-4d11-a933-c1eeb9f145de",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "veloLeft",
@@ -27,7 +29,8 @@
                     "id": "d58c432c-e481-4a7c-9661-6c377cedfea7",
                     "expectedControlType": "Vector3",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "veloRight",
@@ -35,7 +38,8 @@
                     "id": "239824ad-c170-4ec6-bd3a-a665f682e340",
                     "expectedControlType": "Vector3",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "TrigLeft",
@@ -43,7 +47,8 @@
                     "id": "5ef35065-1233-4c49-aca2-93ca75d2734a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TrigRight",
@@ -51,7 +56,8 @@
                     "id": "12ae077c-c16a-4c51-9cab-4743296087f9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "PreTrigLeft",
@@ -59,7 +65,8 @@
                     "id": "acb0cbe7-3409-456c-998f-b80c60bf076e",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "PreTrigRight",
@@ -67,7 +74,26 @@
                     "id": "92649db5-fb60-4864-be07-b2ba4717c86c",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "9f2a0ddc-5d44-4c7f-8449-9d0e664ab978",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "x",
+                    "type": "Button",
+                    "id": "89f8ccf8-dc09-4d06-93d5-bf8b4936263d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -178,6 +204,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "PreTrigRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38078275-a081-4728-892f-59fa8c6451bc",
+                    "path": "<OculusTouchController>{LeftHand}/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4dd587ac-2899-4ef2-8fd6-23fe99329166",
+                    "path": "<OculusTouchController>{LeftHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "x",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
