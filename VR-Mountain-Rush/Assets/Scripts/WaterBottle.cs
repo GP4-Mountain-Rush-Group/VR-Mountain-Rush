@@ -9,10 +9,12 @@ public class WaterBottle : MonoBehaviour
     bool isDrink = false;
     public AudioClip drink;
     AudioSource audioSource;
+    public static GameObject cover;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        cover = transform.GetChild(1).gameObject;
     }
 
     // Update is called once per frame
@@ -21,10 +23,15 @@ public class WaterBottle : MonoBehaviour
         if (top.transform.position.y - bottom.transform.position.y < 0)
         {
             WaterController.addWater(Time.deltaTime * 10);
+            cover.SetActive(false);
             isDrink = true;
         }
-        else
+        else 
+        {
             isDrink = false;
+            cover.SetActive(true);
+        }
+            
 
         if (isDrink && !audioSource.isPlaying)
             audioSource.PlayOneShot(drink, 0.7F);
