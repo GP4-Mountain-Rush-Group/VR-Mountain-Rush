@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: f9a83ca4e40b80347a0dfbc168b6732c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Sunlight
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 79873acdb8473244f8d458092cc8dd60, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
