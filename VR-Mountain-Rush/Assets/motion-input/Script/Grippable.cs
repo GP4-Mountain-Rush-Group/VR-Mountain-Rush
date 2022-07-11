@@ -13,7 +13,11 @@ public class Grippable : MonoBehaviour
     public bool GripRotate = true;
     public bool GripPosit = true;
     public bool releaseReset = true;
+
     public bool IsGripped = false;
+    public bool IsTriggered = false;
+    public bool IsPreTrigger = false;
+
     public bool IsKinematic = true;
     bool resetCompleted = true;
 
@@ -52,6 +56,8 @@ public class Grippable : MonoBehaviour
     public void ReleaseObject()
     {
         IsGripped = false;
+        IsTriggered = false;
+        IsPreTrigger = false;
     }
 
     IEnumerator resetAnimation()
