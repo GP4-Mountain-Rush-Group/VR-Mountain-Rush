@@ -87,9 +87,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "x",
-                    "type": "Button",
+                    "name": "leftButton",
+                    "type": "PassThrough",
                     "id": "89f8ccf8-dc09-4d06-93d5-bf8b4936263d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "rightButton",
+                    "type": "PassThrough",
+                    "id": "e96004b2-ef52-4160-a7b6-80127e185f60",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -225,7 +234,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "x",
+                    "action": "leftButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28a20ad3-1e29-46c8-b88a-ad0d9da867ff",
+                    "path": "<OculusTouchController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "leftButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9cb7b5c1-e095-4488-9477-2e3eb73022f8",
+                    "path": "<OculusTouchController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rightButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8d0a8e5-93f7-43e7-b4ec-46153501a8f8",
+                    "path": "<OculusTouchController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rightButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

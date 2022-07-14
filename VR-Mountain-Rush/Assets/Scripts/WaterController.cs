@@ -7,14 +7,14 @@ public class WaterController : MonoBehaviour
 {
     [SerializeField] GameObject waterFeild;
     [SerializeField] private static float water;
-    [SerializeField] private float maxWater = 100f;
+    [SerializeField] private float maxWater = 50f;
     [SerializeField] private float currentwater;
     [SerializeField] private static float waterSpeed;
     [SerializeField] private float wTime;
     // Start is called before the first frame update
     void Start()
     {
-        water = 75f;
+        water = 30f;
         waterSpeed = 1;
     }
 

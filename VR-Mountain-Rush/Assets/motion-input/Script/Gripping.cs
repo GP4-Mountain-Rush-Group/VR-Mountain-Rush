@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 public class Gripping : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class Gripping : MonoBehaviour
     public bool preTrig;
 
     HandMotionDetect handMotion;
+
+    public GameObject menuObj;
+    public GameObject leftButtonObj;
+    public GameObject rightButtonObj;
 
 
 
@@ -99,6 +104,46 @@ public class Gripping : MonoBehaviour
         //nowPos = transform.position;
         //deltaPos = nowPos - oldPos;
         //oldPos = nowPos;
+
+        if (handIsLeft)
+        {
+            if (leftButtonObj != null)
+            {
+                if (vra.hand.leftButton.ReadValue<float>() != 0 && !leftButtonObj.activeSelf)
+                {
+                    leftButtonObj.SetActive(true);
+                }
+                else if (vra.hand.leftButton.ReadValue<float>() == 0)
+                {
+                    leftButtonObj.SetActive(false);
+                }
+            }
+        }
+        else 
+        {
+            if (rightButtonObj != null)
+            {
+                if (vra.hand.rightButton.ReadValue<float>() != 0)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+            }
+        }
+
+        if (menuObj != null)
+        {
+            if (vra.hand.Menu.ReadValue<float>() != 0 && !menuObj.activeSelf)
+            {
+                menuObj.SetActive(true);
+                GetComponent<VRUI>().enabled = true;
+            }
+            else if (vra.hand.Menu.ReadValue<float>() == 0)
+            {
+                menuObj.SetActive(false);
+                GetComponent<VRUI>().enabled = false;
+            }
+        }
+
     }
 
     void OnTriggerStay(Collider other)

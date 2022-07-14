@@ -109,9 +109,18 @@ public partial class @VRAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""x"",
-                    ""type"": ""Button"",
+                    ""name"": ""leftButton"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""89f8ccf8-dc09-4d06-93d5-bf8b4936263d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""rightButton"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e96004b2-ef52-4160-a7b6-80127e185f60"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -247,7 +256,40 @@ public partial class @VRAction : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""x"",
+                    ""action"": ""leftButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28a20ad3-1e29-46c8-b88a-ad0d9da867ff"",
+                    ""path"": ""<OculusTouchController>{LeftHand}/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""leftButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9cb7b5c1-e095-4488-9477-2e3eb73022f8"",
+                    ""path"": ""<OculusTouchController>{RightHand}/primaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""rightButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e8d0a8e5-93f7-43e7-b4ec-46153501a8f8"",
+                    ""path"": ""<OculusTouchController>{RightHand}/secondaryButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""rightButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -267,7 +309,8 @@ public partial class @VRAction : IInputActionCollection2, IDisposable
         m_hand_PreTrigLeft = m_hand.FindAction("PreTrigLeft", throwIfNotFound: true);
         m_hand_PreTrigRight = m_hand.FindAction("PreTrigRight", throwIfNotFound: true);
         m_hand_Menu = m_hand.FindAction("Menu", throwIfNotFound: true);
-        m_hand_x = m_hand.FindAction("x", throwIfNotFound: true);
+        m_hand_leftButton = m_hand.FindAction("leftButton", throwIfNotFound: true);
+        m_hand_rightButton = m_hand.FindAction("rightButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -336,7 +379,8 @@ public partial class @VRAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_hand_PreTrigLeft;
     private readonly InputAction m_hand_PreTrigRight;
     private readonly InputAction m_hand_Menu;
-    private readonly InputAction m_hand_x;
+    private readonly InputAction m_hand_leftButton;
+    private readonly InputAction m_hand_rightButton;
     public struct HandActions
     {
         private @VRAction m_Wrapper;
@@ -350,7 +394,8 @@ public partial class @VRAction : IInputActionCollection2, IDisposable
         public InputAction @PreTrigLeft => m_Wrapper.m_hand_PreTrigLeft;
         public InputAction @PreTrigRight => m_Wrapper.m_hand_PreTrigRight;
         public InputAction @Menu => m_Wrapper.m_hand_Menu;
-        public InputAction @x => m_Wrapper.m_hand_x;
+        public InputAction @leftButton => m_Wrapper.m_hand_leftButton;
+        public InputAction @rightButton => m_Wrapper.m_hand_rightButton;
         public InputActionMap Get() { return m_Wrapper.m_hand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -387,9 +432,12 @@ public partial class @VRAction : IInputActionCollection2, IDisposable
                 @Menu.started -= m_Wrapper.m_HandActionsCallbackInterface.OnMenu;
                 @Menu.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnMenu;
                 @Menu.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnMenu;
-                @x.started -= m_Wrapper.m_HandActionsCallbackInterface.OnX;
-                @x.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnX;
-                @x.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnX;
+                @leftButton.started -= m_Wrapper.m_HandActionsCallbackInterface.OnLeftButton;
+                @leftButton.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnLeftButton;
+                @leftButton.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnLeftButton;
+                @rightButton.started -= m_Wrapper.m_HandActionsCallbackInterface.OnRightButton;
+                @rightButton.performed -= m_Wrapper.m_HandActionsCallbackInterface.OnRightButton;
+                @rightButton.canceled -= m_Wrapper.m_HandActionsCallbackInterface.OnRightButton;
             }
             m_Wrapper.m_HandActionsCallbackInterface = instance;
             if (instance != null)
@@ -421,9 +469,12 @@ public partial class @VRAction : IInputActionCollection2, IDisposable
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
-                @x.started += instance.OnX;
-                @x.performed += instance.OnX;
-                @x.canceled += instance.OnX;
+                @leftButton.started += instance.OnLeftButton;
+                @leftButton.performed += instance.OnLeftButton;
+                @leftButton.canceled += instance.OnLeftButton;
+                @rightButton.started += instance.OnRightButton;
+                @rightButton.performed += instance.OnRightButton;
+                @rightButton.canceled += instance.OnRightButton;
             }
         }
     }
@@ -439,6 +490,7 @@ public partial class @VRAction : IInputActionCollection2, IDisposable
         void OnPreTrigLeft(InputAction.CallbackContext context);
         void OnPreTrigRight(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
-        void OnX(InputAction.CallbackContext context);
+        void OnLeftButton(InputAction.CallbackContext context);
+        void OnRightButton(InputAction.CallbackContext context);
     }
 }
