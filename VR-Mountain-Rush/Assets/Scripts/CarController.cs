@@ -45,6 +45,8 @@ public class CarController : MonoBehaviour
     private Rigidbody carRb;
     Vector3 m_EulerAngleVelocity;
 
+    public HandleBreak bicycleHandleBreak;
+
     [SerializeField]
     float eulerAngZ;
 
@@ -145,7 +147,7 @@ public class CarController : MonoBehaviour
 
     void Brake()
     {
-        if (Input.GetKey(KeyCode.Space) || moveInput == 0)
+        if (bicycleHandleBreak.breakBicycle || moveInput == 0)
         {
             foreach (var wheel in wheels)
             {
