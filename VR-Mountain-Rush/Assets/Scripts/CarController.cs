@@ -147,11 +147,18 @@ public class CarController : MonoBehaviour
 
     void Brake()
     {
-        if (bicycleHandleBreak.breakBicycle || moveInput == 0)
+        if (bicycleHandleBreak.breakBicycle)
         {
             foreach (var wheel in wheels)
             {
                 wheel.wheelCollider.brakeTorque = 300 * brakeAcceleration * Time.deltaTime;
+            }
+        }
+        else if (moveInput == 0)
+        {
+            foreach (var wheel in wheels)
+            {
+                wheel.wheelCollider.brakeTorque = 30 * brakeAcceleration * Time.deltaTime;
             }
         }
         else

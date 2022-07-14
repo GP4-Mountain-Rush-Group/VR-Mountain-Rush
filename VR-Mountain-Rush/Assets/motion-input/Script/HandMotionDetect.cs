@@ -44,7 +44,7 @@ public class HandMotionDetect : MonoBehaviour
     public float avgSpeedSeg = 0f;
     public float avgSpeed = 0f;
 
-    public float minDistLimit = 0.3f;
+    public float minDistLimit = 0.2f;
 
     Queue<float> queueAverageSpeed = new Queue<float>(4);
 

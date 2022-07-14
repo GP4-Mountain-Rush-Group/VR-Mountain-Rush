@@ -121,13 +121,12 @@ public class Gripping : MonoBehaviour
         }
         else 
         {
-            if (rightButtonObj != null)
-            {
+
                 if (vra.hand.rightButton.ReadValue<float>() != 0)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
-            }
+ 
         }
 
         if (menuObj != null)
