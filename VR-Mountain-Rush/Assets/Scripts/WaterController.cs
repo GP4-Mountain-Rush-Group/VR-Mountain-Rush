@@ -54,7 +54,6 @@ public class WaterController : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name != "level 0")
             {
-                Time.timeScale = 0;
                 deadMenu.SetActive(true);
             }
         }

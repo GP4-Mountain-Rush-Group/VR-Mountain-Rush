@@ -9,12 +9,8 @@ public class EndGameArea : MonoBehaviour
     void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("1");
-            Time.timeScale = 0;
             EndMenu.SetActive(true);
         }
-        else
-            Debug.Log("2");
 
     }
 }

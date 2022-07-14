@@ -25,7 +25,6 @@ public class TimeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1;
         startHour = UnityEngine.Random.Range(0, 24);
         currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
 
