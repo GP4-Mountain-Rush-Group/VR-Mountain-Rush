@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WaterController : MonoBehaviour
 {
@@ -11,11 +12,16 @@ public class WaterController : MonoBehaviour
     [SerializeField] private float currentwater;
     [SerializeField] private static float waterSpeed;
     [SerializeField] private float wTime;
+    public GameObject deadMenu;
+    Color color;
     // Start is called before the first frame update
     void Start()
     {
+        color = waterFeild.GetComponent<Image>().color;
         water = 30f;
         waterSpeed = 1;
+        color.a = 0f;
+        waterFeild.GetComponent<Image>().color = color;
     }
 
     // Update is called once per frame
@@ -46,14 +52,16 @@ public class WaterController : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 0;
+            if (SceneManager.GetActiveScene().name != "level 0")
+            {
+                Time.timeScale = 0;
+                deadMenu.SetActive(true);
+            }
         }
     }
 
     private void TipToDrink()
-    {
-        var color = waterFeild.GetComponent<Image>().color;
-        
+    {           
         if (water > 0 && water < 15)
         {
             wTime += Time.deltaTime;

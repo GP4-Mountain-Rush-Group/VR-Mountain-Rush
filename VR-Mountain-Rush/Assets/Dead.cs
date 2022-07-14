@@ -11,10 +11,10 @@ public class Dead : MonoBehaviour
 	}
 	public void Loadlv1()
 	{
-		SceneManager.LoadScene("Level1");
+		SceneManager.LoadScene("Level 1");
 	}
 	public void Loadlv0()
 	{
-		SceneManager.LoadScene("Level0");
+		SceneManager.LoadScene("Level 0");
 	}
 }
